@@ -28,23 +28,23 @@
     </form>
 
     <script type="module">
-      let $i = document.getElementById('investment');
-      let $y = document.getElementById('yield');
-      let $cy = document.getElementById('cycles');
-      let $c = document.getElementById('calculate');
-      let years = 0;
-      let total = 0;
-      let pay = 0;
-
       $c.onclick = function() {
-        while (total < 1000) {
-            pay += $i * $y;
-            total += pay;
-            $i += pay;
-            years += 1;	  
-        }
-        $cy.innerHtml = years;
-	return false;
+          let $i = document.getElementById('investment');
+          let $y = document.getElementById('yield');
+          let $cy = document.getElementById('cycles');
+          let $c = document.getElementById('calculate');
+          let years = 0;
+          let total = 0;
+          let pay = 0;
+
+          while (total < 1000) {
+              pay += $i * $y;
+              total += pay;
+              $i += pay;
+              years += 1;	  
+          }
+          $cy.innerHtml = years;
+	  return false;
       };
     </script>
   </body>
