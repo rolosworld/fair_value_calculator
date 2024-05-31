@@ -14,7 +14,7 @@
 	  <td><input type="text" id="investment" name="investment"/></td>
 	</tr>
 	<tr>
-	  <th>Annual Yield:</th>
+	  <th>Yield:</th>
 	  <td><input type="text" id="yield" name="yield"/></td>
 	</tr>
 	<tr>
@@ -28,22 +28,23 @@
     </form>
 
     <script type="module">
+      let $c = document.getElementById('calculate');
       $c.onclick = function() {
-          let $i = document.getElementById('investment');
-          let $y = document.getElementById('yield');
+          let $i = parseFloat(document.getElementById('investment').value,10);
+          let $y = parseFloat(document.getElementById('yield').value,10) / 100;
           let $cy = document.getElementById('cycles');
-          let $c = document.getElementById('calculate');
           let years = 0;
           let total = 0;
           let pay = 0;
+          let initial = $i;
 
-          while (total < 1000) {
+          while (total < initial) {
               pay += $i * $y;
               total += pay;
               $i += pay;
               years += 1;	  
           }
-          $cy.innerHtml = years;
+          $cy.innerHTML = years;
 	  return false;
       };
     </script>
