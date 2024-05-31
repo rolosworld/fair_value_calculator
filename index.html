@@ -6,37 +6,34 @@
     <title>Fair Value Calculator</title>
     <meta name="description" content="Fair Value Calculator"/>
     <style>
+      .years td{
+          text-align: center;
+      }
       th {
           text-align: right;
       }
     </style>
   </head>
   <body>
+    With and without drip!
+    With and without tax!
     <form action="#" type="post" onsubmit="return false;">
       <table>
-	<tr>
-	  <th>Initial Investment:</th>
-	  <td><input type="text" id="investment" name="investment"/></td>
-	</tr>
 	<tr>
 	  <th>Yield:</th>
 	  <td><input type="text" id="yield" name="yield"/></td>
 	</tr>
 	<tr>
-	  <th>Cycles per year:</th>
-	  <td><input type="text" id="cpy" name="cpy"/></td>
-	</tr>
-	<tr>
-	  <th>Tax:</th>
-	  <td><input type="text" id="tax" name="tax"/></td>
-	</tr>
-	<tr>
-	  <th>Return of investment cycles:</th>
-	  <td id="cycles"></td>
-	</tr>
-	<tr>
-	  <th>Years:</th>
-	  <td id="years"></td>
+	  <td colspan="2">
+            <table class="years">
+              <tr><th>Tax</th><th>Years</th></tr>
+              <tr><th>0%</th><td id="t0"></td></tr>
+              <tr><th>10%</th><td id="t10"></td></tr>
+              <tr><th>15%</th><td id="t15"></td></tr>
+              <tr><th>25%</th><td id="t25"></td></tr>
+              <tr><th>37%</th><td id="t37"></td></tr>
+            </table>
+          </td>
 	</tr>
 	<tr>
 	  <td><input type="submit" id="calculate" value="Calculate"/></td>
@@ -46,27 +43,29 @@
 
     <script type="module">
       let $c = document.getElementById('calculate');
-      $c.onclick = function() {
-          let $i = parseFloat(document.getElementById('investment').value,10);
+      function calc($t) {
+          let $i = 1.0;
           let $y = parseFloat(document.getElementById('yield').value,10) / 100;
-          let $cy = document.getElementById('cycles');
-          let $ys = document.getElementById('years');
-          let $cpy = parseFloat(document.getElementById('cpy').value,10) || 1.0;
-          let $t = parseFloat(document.getElementById('tax').value,10) || 1.0;
-          let cycles = 0;
+          let years = 0;
           let total = 0;
           let pay = 0;
           let initial = $i;
 
           $t = 1.0 - ($t/100);
           while (total < initial) {
-              pay = ($i * $y * $t);           
+              pay = ($i * $y * $t);
               total += pay;
               $i += pay;
-              cycles += 1;	  
+              years += 1;
           }
-          $cy.innerHTML = cycles;
-          $ys.innerHTML = cycles / $cpy;
+          return years;
+      };
+      $c.onclick = function() {
+          document.getElementById('t0').innerHTML = calc(0);
+          document.getElementById('t10').innerHTML = calc(10);
+          document.getElementById('t15').innerHTML = calc(15);
+          document.getElementById('t25').innerHTML = calc(25);
+          document.getElementById('t37').innerHTML = calc(37);
 	  return false;
       };
     </script>
