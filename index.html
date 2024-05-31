@@ -27,6 +27,10 @@
 	  <td><input type="text" id="cpy" name="cpy"/></td>
 	</tr>
 	<tr>
+	  <th>Tax:</th>
+	  <td><input type="text" id="tax" name="tax"/></td>
+	</tr>
+	<tr>
 	  <th>Return of investment cycles:</th>
 	  <td id="cycles"></td>
 	</tr>
@@ -48,13 +52,15 @@
           let $cy = document.getElementById('cycles');
           let $ys = document.getElementById('years');
           let $cpy = parseFloat(document.getElementById('cpy').value,10) || 1.0;
+          let $t = parseFloat(document.getElementById('tax').value,10) || 1.0;
           let cycles = 0;
           let total = 0;
           let pay = 0;
           let initial = $i;
 
+          $t = 1.0 - ($t/100);
           while (total < initial) {
-              pay += $i * $y;
+              pay = ($i * $y * $t);           
               total += pay;
               $i += pay;
               cycles += 1;	  
